@@ -3,7 +3,6 @@
 // @todo: DOM узлы
 
 const placeContainer = document.querySelector('.places__list');
-// const addButton = document.querySelector('.profile__add-button');
 
 
 // @todo: Функция создания карточки
@@ -17,10 +16,6 @@ function addCard(titleValue, imageSrc, deleteCard) {
     placeContainer.addEventListener('click', deleteCard)
     return cardElement;
 }
-
-// addButton.addEventListener('click', function () {
-//     placeContainer.append(addCard());
-// });
 
 // @todo: Функция удаления карточки
 
