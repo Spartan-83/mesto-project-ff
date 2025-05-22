@@ -13,6 +13,7 @@ function addCard(titleValue, imageSrc, deleteCard) {
     
     cardElement.querySelector('.card__title').textContent = titleValue;
     cardElement.querySelector('.card__image').src = imageSrc;
+    cardElement.querySelector('.card__image').alt = 'На картинке изображен пейзаж из ' + titleValue;
     placeContainer.addEventListener('click', deleteCard)
     return cardElement;
 }
