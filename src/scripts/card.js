@@ -1,8 +1,7 @@
-import { openModal } from "./modal";
+const cardTemplate = document.querySelector('#card-template').content;
 
 // Функция создания карточки
 export function createCard(titleValue, imageSrc, deleteCard, openImage) {
-    const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.cloneNode(true);
     const cardDelete = cardElement.querySelector('.card__delete-button')
     const cardLike = cardElement.querySelector('.card__like-button')

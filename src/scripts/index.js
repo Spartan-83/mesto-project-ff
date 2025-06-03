@@ -12,16 +12,16 @@ const addButton = document.querySelector('.profile__add-button')
 
 
 const popupEditProfile = document.querySelector('.popup_type_edit');
-const EditProfile = document.forms['edit-profile']
+const editProfileForm = document.forms['edit-profile']
 const profileTitle = document.querySelector('.profile__title')
 const profileDesc = document.querySelector('.profile__description')
 
 const popupOpenImage = document.querySelector('.popup_type_image')
 const popupImage = popupOpenImage.querySelector('.popup__image')
-const popupCaption = popupOpenImage.querySelector('.popup__caption')
+const popupImageCaption = popupOpenImage.querySelector('.popup__caption')
 
 const popupNewCard = document.querySelector('.popup_type_new-card');
-const AddCard = document.forms['new-place']
+const popupNewCardForm = document. forms['new-place']
 
 // Вывод карточек на страницу
 for (let i = 0; i < initialCards.length; i++) {
@@ -31,8 +31,8 @@ placeContainer.append(createCard(initialCards[i].name, initialCards[i].link, del
 // Кнопки редактирования
 editButton.addEventListener('click', function () {
     openModal(popupEditProfile)
-    EditProfile['name'].value = profileTitle.textContent;
-    EditProfile['description'].value = profileDesc.textContent;
+    editProfileForm['name'].value = profileTitle.textContent;
+    editProfileForm['description'].value = profileDesc.textContent;
 })
 
 // Кнопка добавления
@@ -41,26 +41,28 @@ addButton.addEventListener('click', function() {
 })
 
 // Обработка формы добавления карточки
-AddCard.addEventListener('submit', function(evt) {
+popupNewCardForm.addEventListener('submit', function(evt) {
     evt.preventDefault();
-    const PlaceName = AddCard['place-name'].value;
-    const PlaceLink = AddCard['link'].value;
+    const PlaceName = popupNewCardForm['place-name'].value;
+    const PlaceLink = popupNewCardForm['link'].value;
     placeContainer.prepend(createCard(PlaceName, PlaceLink, deleteCard, openImage))
     closeModal(popupNewCard);
+    popupNewCardForm['place-name'].value = '';
+    popupNewCardForm['link'].value = '';
 });
 
 
 // Обработка формы редактирования профиля
-EditProfile.addEventListener('submit', function(evt){
+editProfileForm.addEventListener('submit', function(evt){
     evt.preventDefault();
-    profileTitle.textContent = EditProfile.elements.name.value;
-    profileDesc.textContent = EditProfile.elements.description.value;
+    profileTitle.textContent = editProfileForm.elements.name.value;
+    profileDesc.textContent = editProfileForm.elements.description.value;
     closeModal(popupEditProfile)
 }); 
 
 function openImage(src, alt, title) {
     popupImage.src = src
     popupImage.alt = alt
-    popupCaption.textContent = title
+    popupImageCaption.textContent = title
     openModal(popupOpenImage)
 }
