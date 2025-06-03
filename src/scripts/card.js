@@ -20,7 +20,6 @@ export function createCard(titleValue, imageSrc, deleteCard, openImage) {
 // Функция лайка
 export function likeCard(item) {
     item.classList.toggle('card__like-button_is-active')
-    console.log('log')
 }
 
 // Функция удаления
