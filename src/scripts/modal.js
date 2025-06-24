@@ -1,14 +1,14 @@
 // Функция открытия модального окна
 export function openModal(element) {
     element.classList.add('popup_is-opened');
-    element.addEventListener('click', handleClose)  // Добавляем слушатели при открытии
+    element.addEventListener('mousedown', handleClose)  // Добавляем слушатели при открытии
     document.addEventListener('keydown', handleEscKeyUp)
 }
 
 // Функция закрытия модального окна
 export function closeModal(element) {
     element.classList.remove('popup_is-opened');
-    element.removeEventListener('click', handleClose);
+    element.removeEventListener('mousedown', handleClose);
     document.removeEventListener('keydown',handleEscKeyUp); // Избавляемся от слушателей при закрытии
 }
 // Обработчик закрытия окна через Esc
