@@ -6,7 +6,7 @@ const config = {
   }
 }
 
-function getUserData() {
+export function getUserData() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
@@ -16,12 +16,9 @@ function getUserData() {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
-function getCards() {
+export function getCards() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
@@ -31,35 +28,11 @@ function getCards() {
   }
   return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
-function updateProfile(userData, profileAvatar, profileTitle, profileDesc) {
-  profileAvatar.style.backgroundImage = `url(${userData.avatar})`;
-  profileTitle.textContent = userData.name;
-  profileDesc.textContent = userData.about;
-}
-
-function displayCards(cardsData, container, createFunc, deleteFunc, openFunc, userData) {
-  for (let i = 0; i < cardsData.length; i++) {
-    container.append(createFunc(cardsData[i].name, cardsData[i].link, deleteFunc, openFunc, cardsData[i].likes, cardsData[i]._id, userData._id, cardsData[i].owner._id))
-  }
-}
-
-export async function loadData({profileAvatar, profileTitle, profileDesc, container, createFunc, deleteFunc, openFunc}) {
-  const [userData, cardsData] = await Promise.all([
-    getUserData(), // Функция для получения данных пользователя
-    getCards()     // Функция для получения карточек
-  ]);
-  container.innerHTML = ""
-  updateProfile(userData, profileAvatar, profileTitle, profileDesc);
-  displayCards(cardsData, container, createFunc, deleteFunc, openFunc, userData);
-}
 
 export function updateServerProfile(profileName, profileAbout) {
-  fetch(`${config.baseUrl}/users/me`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -72,9 +45,6 @@ export function updateServerProfile(profileName, profileAbout) {
       return res.json()
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
@@ -93,9 +63,6 @@ export function postNewCard(cardName, cardLink) {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 export function deleteServerCard(cardId) {
@@ -108,9 +75,6 @@ export function deleteServerCard(cardId) {
       return res.json()
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
@@ -125,9 +89,6 @@ export function putCardLike(cardId) {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err)
-  })
 }
 
 export function removeCardLike(cardId) {
@@ -140,9 +101,6 @@ export function removeCardLike(cardId) {
       return res.json()
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err)
   })
 }
 
@@ -160,7 +118,4 @@ export function updateServerAvatar(avatarURL) {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }

@@ -36,17 +36,31 @@ export function createCard(titleValue, imageSrc, deleteCard, openImage, likes,  
 // Функция лайка
 function likeCard(button, cardLikeAmmount, cardId) {
     if (!button.classList.contains('card__like-button_is-active')) {
-        putCardLike(cardId).then(data => cardLikeAmmount.textContent = data.likes.length)
-        button.classList.toggle('card__like-button_is-active');
+        putCardLike(cardId)
+        .then((data) => {
+            cardLikeAmmount.textContent = data.likes.length
+            button.classList.toggle('card__like-button_is-active');
+        })  
+        .catch((error) => {
+            console.log('Произошла ошибка при добавлении лайка:', error);
+        });
     }
     else {
-        removeCardLike(cardId).then(data => cardLikeAmmount.textContent = data.likes.length)
-        button.classList.toggle('card__like-button_is-active');
+        removeCardLike(cardId)
+        .then((data) => {
+            cardLikeAmmount.textContent = data.likes.length
+            button.classList.toggle('card__like-button_is-active');
+        })
+        .catch((error) => {
+            console.log('Произошла ошибка при снятии лайка:', error);
+        });
     }
 }
-
 // Функция удаления
 export const deleteCard = (cardId, card) => {
     deleteServerCard(cardId)
-    card.remove()
+    .then(() => {
+        card.remove()
+    })
+    .catch(err => console.log('Произошла ошибка при удалении карточки'))
 }
