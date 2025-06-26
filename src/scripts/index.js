@@ -122,16 +122,15 @@ popupNewCardForm.addEventListener('submit', async function(evt) {
   const PlaceName = popupNewCardForm['place-name'].value;
   const PlaceLink = popupNewCardForm['link'].value;
   buttonLoading(popupNewCardSaveButton);
-
   try {
     const res = await postNewCard(PlaceName, PlaceLink)
     placeContainer.prepend(createCard(res.name, res.link, deleteCard, openImage, res.likes, res._id, res.owner._id, res.owner._id))
-  } catch (err) {
-    console.log('Произошла ошибка при добавлении карточки:', err);
-  } finally {
     closeModal(popupNewCard);
     popupNewCardForm['place-name'].value = '';
     popupNewCardForm['link'].value = '';
+  } catch (err) {
+    console.log('Произошла ошибка при добавлении карточки:', err);
+  } finally {
     buttonFinishLoading(popupNewCardSaveButton);
   }
 });
@@ -141,12 +140,12 @@ editProfileForm.addEventListener('submit', async function(evt) {
   evt.preventDefault();
   buttonLoading(profileSaveButton);
   try {
-    const res = await updateServerProfile(editProfileForm['name'].value , editProfileForm['description'].value )
+    const res = await updateServerProfile(editProfileForm['name'].value, editProfileForm['description'].value )
     updateProfile(res, profileAvatar, profileTitle, profileDesc)
+    closeModal(popupEditProfile);
   } catch (err) {
     console.error('Произошла ошибка при обновлении профиля:', err);
   } finally {
-    closeModal(popupEditProfile);
     buttonFinishLoading(profileSaveButton);
   }
 });
